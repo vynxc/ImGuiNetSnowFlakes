@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snowflake", "Snowflake\Snowflake.csproj", "{4A0A7622-3233-400B-99F0-FC4E58BA433B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImGuiAnimations", "ImGuiAnimations\ImGuiAnimations.csproj", "{4A0A7622-3233-400B-99F0-FC4E58BA433B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

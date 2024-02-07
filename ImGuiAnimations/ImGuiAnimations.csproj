@@ -7,16 +7,17 @@
         <Nullable>enable</Nullable>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <RootNamespace>ImGuiAnimations</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Include="..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="ClickableTransparentOverlay" Version="9.3.0" />
+        <PackageReference Include="ClickableTransparentOverlay" Version="9.3.0"/>
     </ItemGroup>
 
 </Project>
