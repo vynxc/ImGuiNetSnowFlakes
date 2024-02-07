@@ -16,7 +16,7 @@ public class Renderer : Overlay
     {
         Size = new System.Drawing.Size(1920, 1080);
 
-        Snowflake.CreateSnowFlakes(Snowflakes, 350, 3, 10, 0, 0, 1920, 1080, new Vector4(255, 255, 255, 100));
+        Snowflake.CreateMultiColoredSnowFlakes(Snowflakes);
     }
 
     protected override void Render()

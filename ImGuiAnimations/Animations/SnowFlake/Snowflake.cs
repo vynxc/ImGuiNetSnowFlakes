@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
+﻿using System.Numerics;
+using ImGuiAnimations.Animations.Helpers;
 using ImGuiNET;
 
 namespace ImGuiAnimations.Animations.SnowFlake;
@@ -176,15 +175,66 @@ internal class Snowflake
     /// <param name="windowY">The Y coordinate of the top-left corner of the window.</param>
     /// <param name="width">The width of the window.</param>
     /// <param name="height">The height of the window.</param>
-    /// <param name="color">The color of the snowflakes.</param>
-    public static void CreateSnowFlakes(List<Snowflake> snowFlakes, int limit, float minSize, float maxSize,
-        int windowX, int windowY, int width, int height,
-        Vector4 color)
+    /// <param name="color">The color of the snowflakes. Default is Vector4(255, 255, 255, 100)</param>
+    public static void CreateSnowFlakes(List<Snowflake> snowFlakes, int limit=250, float minSize=5, float maxSize=10,
+        int windowX=0, int windowY=0, int width = 1920, int height=1080,
+        Vector4? color=null)
     {
+        color ??= new Vector4(255, 255, 255, 100);
         for (var i = 0; i < limit; i++)
-            snowFlakes.Add(new Snowflake(minSize, maxSize, windowX, windowY, width, height, color));
+            snowFlakes.Add(new Snowflake(minSize, maxSize, windowX, windowY, width, height, color.Value));
     }
 
+
+    /// <summary>
+    /// Adds snowflakes to the given list up to the specified limit.
+    /// Each snowflake is created with a random size between the given minimum and maximum sizes.
+    /// The snowflakes are positioned within the window defined by the given coordinates and dimensions.
+    /// The snowflakes fall according to the new gravity vector and have the given color.
+    /// </summary>
+    /// <param name="snowFlakes">The list to which the snowflakes are added.</param>
+    /// <param name="limit">The maximum number of snowflakes to be added.</param>
+    /// <param name="minSize">The minimum size of each snowflake.</param>
+    /// <param name="maxSize">The maximum size of each snowflake.</param>
+    /// <param name="windowX">The X coordinate of the top-left corner of the window.</param>
+    /// <param name="windowY">The Y coordinate of the top-left corner of the window.</param>
+    /// <param name="width">The width of the window.</param>
+    /// <param name="height">The height of the window.</param>
+    /// <param name="colors">The colors of the snowflakes. Default [new Vector4(255, 255, 255, 100)] </param>
+    public static void CreateMultiColoredSnowFlakes(List<Snowflake> snowFlakes,
+        List<Vector4> colors, int limit=250, float minSize=5, float maxSize=10,
+        int windowX=0, int windowY=0, int width = 1920, int height=1080)
+    {
+        if(colors.Count == 0) colors.Add(new Vector4(255, 255, 255, 100));
+        
+        for (var i = 0; i < limit; i++)
+            snowFlakes.Add(new Snowflake(minSize, maxSize, windowX, windowY, width, height, ListHelper.GetRandomItem(colors)));
+    }
+    
+    /// <summary>
+    /// Adds snowflakes to the given list up to the specified limit.
+    /// Each snowflake is created with a random size between the given minimum and maximum sizes.
+    /// The snowflakes are positioned within the window defined by the given coordinates and dimensions.
+    /// The snowflakes fall according to the new gravity vector and have the given color.
+    /// </summary>
+    /// <param name="snowFlakes">The list to which the snowflakes are added.</param>
+    /// <param name="limit">The maximum number of snowflakes to be added.</param>
+    /// <param name="minSize">The minimum size of each snowflake.</param>
+    /// <param name="maxSize">The maximum size of each snowflake.</param>
+    /// <param name="windowX">The X coordinate of the top-left corner of the window.</param>
+    /// <param name="windowY">The Y coordinate of the top-left corner of the window.</param>
+    /// <param name="width">The width of the window.</param>
+    /// <param name="height">The height of the window.</param>
+    /// <param name="colorsCount">The count colors to randomly generate for the snowflakes. </param>
+    public static void CreateMultiColoredSnowFlakes(List<Snowflake> snowFlakes,
+        int colorsCount=5, int limit=250, float minSize=5, float maxSize=10,
+        int windowX=0, int windowY=0, int width = 1920, int height=1080)
+    {
+        var colors = ColorGenerator.GenerateRandomColors(colorsCount);
+        for (var i = 0; i < limit; i++)
+            snowFlakes.Add(new Snowflake(minSize, maxSize, windowX, windowY, width, height, ListHelper.GetRandomItem(colors)));
+    }
+    
     /// Updates the positions of snowflakes based on mouse position and window position.
     /// @param snowFlakes The list of snowflakes to update.
     /// @param mouse The current position of the mouse.
