@@ -264,10 +264,10 @@ internal class Snowflake
     /// <summary>
     /// Changes the position of the snowflakes within a window.
     /// </summary>
-    /// <param name="snowFlakes">A reference to the list of snowflakes.</param>
+    /// <param name="snowFlakes">List of snowflakes.</param>
     /// <param name="windowX">The new X coordinate of the window.</param>
     /// <param name="windowY">The new Y coordinate of the window.</param>
-    public static void ChangeWindowPos(ref List<Snowflake> snowFlakes, int windowX, int windowY)
+    public static void ChangeWindowPos(List<Snowflake> snowFlakes, int windowX, int windowY)
     {
         foreach (var flake in snowFlakes)
         {
