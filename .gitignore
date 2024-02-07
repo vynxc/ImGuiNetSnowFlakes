@@ -1,0 +1,9 @@
+# .NET build/output
+**/bin/
+**/obj/
+
+# JetBrains Rider
+.idea/
+
+# Git
+.git/
