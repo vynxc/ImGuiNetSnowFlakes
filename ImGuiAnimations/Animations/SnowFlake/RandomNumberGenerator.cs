@@ -1,4 +1,6 @@
-﻿namespace ImGuiAnimations.Animations.SnowFlake;
+﻿using System;
+
+namespace ImGuiAnimations.Animations.SnowFlake;
 
 public static class RandomNumberGenerator
 {

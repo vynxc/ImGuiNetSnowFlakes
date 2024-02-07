@@ -1,4 +1,6 @@
-﻿namespace ImGuiAnimations.Animations.SnowFlake;
+﻿using System;
+
+namespace ImGuiAnimations.Animations.SnowFlake;
 
 /// <summary>
 /// The VectorCalculations class provides mathematical operations for working with vectors.
