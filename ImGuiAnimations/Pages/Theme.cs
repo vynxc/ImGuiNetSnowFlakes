@@ -7,11 +7,11 @@ namespace ImGuiAnimations.Pages;
 
 public class Theme : IPage
 {
-    private readonly IEnumerable<Type> _themeTypes = Assembly.GetExecutingAssembly().GetTypes()
+    private static readonly IEnumerable<Type> ThemeTypes = Assembly.GetExecutingAssembly().GetTypes()
         .Where(t => typeof(ITheme).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);
     public void Render()
     {
-        foreach (var themeType in _themeTypes)
+        foreach (var themeType in ThemeTypes)
         {
             var buttonWidth = ImGui.CalcTextSize(themeType.Name).X+ImGui.GetStyle().FramePadding.X*2;
             var remainingWidth = ImGui.GetContentRegionAvail().X;
