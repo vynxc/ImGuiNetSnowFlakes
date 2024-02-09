@@ -14,12 +14,12 @@ public class ToggleButton(string text,Action onClick)
 
    // private float _currentWidth = MinWidth;
     private float _currentHeight = MinHeight;
-    private bool _toggled;
     private bool _hovered;
     private const float HoverTransitionSpeed = 0.15f;
-    public bool Render()
+    public void Render(bool toggled = false)
     {
-        if (_toggled)
+        
+        if (toggled)
         {
             var rectangleHeight = _currentHeight * 0.65f;
 
@@ -33,16 +33,14 @@ public class ToggleButton(string text,Action onClick)
 
         // _currentWidth = Lerp(_currentWidth, MinWidth, HoverTransitionSpeed);
         //  _currentWidth = Lerp(_currentWidth, MaxWidth, HoverTransitionSpeed);
-        _currentHeight = Lerp(_currentHeight, _hovered||_toggled ? MaxHeight : MinHeight, HoverTransitionSpeed);
+        _currentHeight = Lerp(_currentHeight, _hovered||toggled ? MaxHeight : MinHeight, HoverTransitionSpeed);
 
         if (ImGui.Button(text, new Vector2(-1, _currentHeight)))
         {
-            _toggled = !_toggled;
             onClick();
         }
         ImGui.PopStyleVar(1);
         _hovered = ImGui.IsItemHovered();
-        return _toggled;
     }
 
     private static float Lerp(float a, float b, float t)

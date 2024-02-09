@@ -103,7 +103,6 @@ internal class Snowflake
     /// <summary>
     /// Applies a force to the object. </summary> <param name="force">
     /// The force vector to apply to the object. </param>
-    /// /
     private void ApplyForce(Vector3 force)
     {
         var f = force;

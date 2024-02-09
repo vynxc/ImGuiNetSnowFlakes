@@ -1,30 +1,75 @@
 ﻿using System.Numerics;
+using ImGuiAnimations.Animations;
+using ImGuiAnimations.Pages;
 using ImGuiNET;
 
 namespace ImGuiAnimations.Components;
 
+/// <summary>
+/// A helper class for managing components.
+/// </summary>
 public static class ComponentsHelper
 {
-    private static List<(string,ToggleButton)> _buttons= new();
-    public static void VerticalTabBar(List<(string,Action)> tabNames, ref int selectedTab)
+    /// <summary>
+    /// Represents the currently selected tab index.
+    /// </summary>
+    private static int _selectedTab;
+
+    /// <summary>
+    /// Represents a collection of pages.
+    /// </summary>
+    private static readonly List<Page> Pages =
+    [
+        new Page("Home", new Home()),
+        new Page("Aim", new Aim()),
+        new Page("Exploits", new Exploits()),
+        new Page("Theme", new Theme())
+    ];
+
+    /// <summary>
+    /// The list of tuples containing the name and corresponding toggle button.
+    /// </summary>
+    private static readonly List<(string,ToggleButton)> Buttons= new();
+
+    /// <summary>
+    /// Displays a vertical tab bar with a list of pages.
+    /// </summary>
+    public static void VerticalTabBar()
     {
-       
-
-        for (var i = 0; i < tabNames.Count; ++i)
+        ImGui.BeginChild("TabsAndContent", new Vector2(125, -1), ImGuiChildFlags.Border, ImGuiWindowFlags.None);
         {
-            if (!_buttons.Select(x => x.Item1).Contains(tabNames[i].Item1))
+
+            for (var i = 0; i < Pages.Count; ++i)
             {
-                var button = new ToggleButton(tabNames[i].Item1, tabNames[i].Item2);
-                _buttons.Add((tabNames[i].Item1, button));
+                if (!Buttons.Select(x => x.Item1).Contains(Pages[i].Name))
+                {
+                    var i1 = i;
+                    var button = new ToggleButton(Pages[i].Name, () => { _selectedTab = i1; });
+                    Buttons.Add((Pages[i].Name, button));
+                }
+
             }
-           
+
+            for (var i = 0; i < Buttons.Count; i++)
+            {
+                Buttons[i].Item2.Render(_selectedTab == i);
+            }
         }
-        for (var j = 0; j < _buttons.Count; j++)
+        ImGui.EndChild();
+        RenderPage();
+
+    }
+
+    /// <summary>
+    /// Renders a page using the ImGui framework.
+    /// </summary>
+    private static void RenderPage()
+    {
+        ImGui.SameLine();
+        ImGui.BeginChild("Content" ,new Vector2(-1, -1));
         {
-            _buttons[j].Item2.Render();
+            Pages[_selectedTab].RenderPage.Render();
         }
-
-        Console.WriteLine(_buttons.Count);
-
+      
     }
 }
