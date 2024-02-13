@@ -14,7 +14,7 @@ public class Home : IPage
         ImGui.BeginChild("HomeContent", new Vector2(-1, -1),ImGuiChildFlags.Border);
         {
             ImGui.TextWrapped("Welcome to ImGuiAnimations! \n \nThis is a simple example of how to create a tab system using ImGui.NET. \n \nThis project is part of the ImGuiAnimations series. \n \nYou can find the source code on GitHub.");
-
+            ImGui.Text($"FPS: {ImGui.GetIO().Framerate}");
         }
     }
 }

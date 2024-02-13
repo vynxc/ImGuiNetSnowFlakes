@@ -113,16 +113,17 @@ internal class Snowflake
     /// <summary>
     /// Updates the position and velocity of the object.
     /// </summary>
-    private void Update()
+    private void Update(float multiplier = 1f)
     {
         _velocity += _acceleration;
         _velocity = Vector3.Clamp(_velocity, new Vector3(-_radius * 0.2f, -_radius * 0.2f, 0),
             new Vector3(_radius * 0.2f, _radius * 0.2f, 0));
-        _position += _velocity;
+        _position += _velocity * multiplier;
         _acceleration *= 0f;
 
         if (OffScreen()) Randomize();
     }
+   
 
     /// <summary>
     /// Checks if the current position is off-screen based on the window size and object dimensions.
@@ -144,6 +145,15 @@ internal class Snowflake
     {
         _position = new Vector3(RandomNumberGenerator.RandomFloat(_windowX, _windowX + _width),
             RandomNumberGenerator.RandomFloat(_windowY - 80, _windowY - 10), 0);
+        _velocity = new Vector3(0, 0, 0);
+        _acceleration = new Vector3(0, 0, 0);
+
+        _radius = GetRandomSize(_minSize, _maxSize);
+    }
+    private void RandomizeScreen()
+    {
+        _position = new Vector3(RandomNumberGenerator.RandomFloat(_windowX, _windowX + _width),
+            RandomNumberGenerator.RandomFloat(_windowY, _windowY + _height), 0); 
         _velocity = new Vector3(0, 0, 0);
         _acceleration = new Vector3(0, 0, 0);
 
@@ -205,10 +215,18 @@ internal class Snowflake
         int windowX=0, int windowY=0, int width = 1920, int height=1080)
     {
         if(colors.Count == 0) colors.Add(new Vector4(255, 255, 255, 100));
-        
+
         for (var i = 0; i < limit; i++)
-            snowFlakes.Add(new Snowflake(minSize, maxSize, windowX, windowY, width, height, ListHelper.GetRandomItem(colors)));
+        {
+            var snowflake = new Snowflake(minSize, maxSize, windowX, windowY, width, height,
+                ListHelper.GetRandomItem(colors));
+            snowflake.RandomizeScreen();
+            snowFlakes.Add(snowflake);
+        }
+            
     }
+
+    
     
     /// <summary>
     /// Adds snowflakes to the given list up to the specified limit.
@@ -231,8 +249,14 @@ internal class Snowflake
     {
         var colors = ColorGenerator.GenerateRandomColors(colorsCount);
         for (var i = 0; i < limit; i++)
-            snowFlakes.Add(new Snowflake(minSize, maxSize, windowX, windowY, width, height, ListHelper.GetRandomItem(colors)));
+        {
+            var snowflake = new Snowflake(minSize, maxSize, windowX, windowY, width, height,
+                ListHelper.GetRandomItem(colors));
+            snowflake.RandomizeScreen();
+            snowFlakes.Add(snowflake);
+        }
     }
+    
     
     /// Updates the positions of snowflakes based on mouse position and window position.
     /// @param snowFlakes The list of snowflakes to update.

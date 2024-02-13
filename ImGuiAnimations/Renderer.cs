@@ -19,7 +19,7 @@ public class Renderer : Overlay
     {
         Size = new System.Drawing.Size(1920, 1080);
         Style();
-        Snowflake.CreateMultiColoredSnowFlakes(Snowflakes, 5, 100, 2, 3);
+        Snowflake.CreateMultiColoredSnowFlakes(Snowflakes, 5, 230, 2, 3);
     }
 
     protected override void Render()
@@ -27,7 +27,6 @@ public class Renderer : Overlay
         if (!_isInitialized)
         {
             Init();
-
             _isInitialized = true;
         }
 

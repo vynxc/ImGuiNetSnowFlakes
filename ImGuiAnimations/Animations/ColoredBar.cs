@@ -33,7 +33,7 @@ public static class ColoredBar
                 drawList.AddRectFilled(
                     panelPos with { Y = panelPos.Y + i }, 
                     new Vector2(panelPos.X + 4, panelPos.Y + i + 1), 
-                    color
+                    color,15
                 );
             }
             else
@@ -41,7 +41,7 @@ public static class ColoredBar
                 drawList.AddRectFilled(
                     panelPos with { X = panelPos.X + i }, 
                     new Vector2(panelPos.X + i + 1, panelPos.Y + 4), 
-                    color
+                    color,15
                 );
             }
         }
